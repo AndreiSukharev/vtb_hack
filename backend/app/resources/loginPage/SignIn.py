@@ -11,8 +11,6 @@ class SignIn(UsersCommon):
             result = self.__check_login_password(login, password_request)
             if result != "ok":
                 return {'message': result}
-            if not self.add_location():
-                return {'message': 'error in adding location'}
             return "ok"
         except Exception as e:
             print(e)
