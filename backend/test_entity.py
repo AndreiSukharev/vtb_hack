@@ -45,6 +45,34 @@ users = [
 ]
 
 docs = ['ПАО НК Роснефть', 'ПАО РусГидро', 'ПАО Сбербанк']
+votes = ['first', 'second', 'third', 'fourth', 'first', 'second', 'third', 'fourth', 'first', 'second', 'third', 'fourth']
+chats = ['Опрос 1', 'Опрос 2', 'Опрос 3', 'Опрос 4', 'Опрос 1', 'Опрос 2', 'Опрос 3', 'Опрос 4', 'Опрос 1', 'Опрос 2', 'Опрос 3', 'Опрос 4']
+
+# def create_chat_votes(doc_id, user_for_docs):
+#     for user_id in range(1, user_for_docs):
+#         sql = """   INSERT INTO  docs_users (user_id, doc_id)
+#                     VALUES (%s, %s)
+#                     ;"""
+#         record = (user_id, doc_id)
+#         cursor.execute(sql, record)
+#         connection.commit()
+
+
+def create_vote(vote):
+    sql = """INSERT INTO   votes (vote_text)
+                     VALUES (%s)
+                    ;"""
+    record = (vote,)
+    cursor.execute(sql, record)
+    connection.commit()
+
+def create_chats(chat, vote_id):
+    sql = """INSERT INTO   chats (chat_name, vote_id)
+                     VALUES (%s, %s)
+                    ;"""
+    record = (chat,vote_id)
+    cursor.execute(sql, record)
+    connection.commit()
 
 
 def create_user(user):
@@ -54,7 +82,6 @@ def create_user(user):
     record = (user['email'], user['login'], user['password'])
     cursor.execute(sql, record)
     connection.commit()
-
 
 def create_doc(doc):
     sql = """   INSERT INTO   docs (doc_name)
@@ -80,6 +107,7 @@ try:
         create_doc(doc)
     for user in users:
         create_user(user)
+    #docs_users
     for doc_id in range(1, len(docs) + 1):
         if doc_id == 1:
             user_for_docs = len(users) + 1
@@ -88,7 +116,13 @@ try:
         else:
             user_for_docs = len(users) - 1
         create_docs_users(doc_id, user_for_docs)
-
+#     votes
+    for vote in votes:
+        create_vote(vote)
+    i = 0
+    for chat in chats:
+        i += 1
+        create_chats(chat, i)
 
 except Exception as e:
     print(e)

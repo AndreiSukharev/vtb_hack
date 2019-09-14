@@ -24,3 +24,4 @@ backend/app/resources/Profile/__pycache__/
 backend/app/resources/Users/__pycache__/
 backend/app/resources/Common/__pycache__/
 backend/app/resources/Chat/__pycache__/
+backend/app/resources/Docs/__pycache__/

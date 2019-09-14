@@ -24,7 +24,7 @@ def start_db():
     cursor.execute(Models.votes)
     cursor.execute(Models.votes_users)
     cursor.execute(Models.chats)
-    cursor.execute(Models.chat_docs)
+    cursor.execute(Models.docs_votes)
     cursor.execute(Models.messages)
     cursor.execute(Models.chat_messages)
 
