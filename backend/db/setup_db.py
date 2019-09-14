@@ -18,6 +18,12 @@ def start_db():
     connection, cursor = start_connection()
     # add tables
     cursor.execute(Models.users)
+    cursor.execute(Models.votes)
+    cursor.execute(Models.votes_users)
+    cursor.execute(Models.messages)
+    cursor.execute(Models.chats)
+    cursor.execute(Models.chat_users)
+    cursor.execute(Models.chat_messages)
 
     connection.commit()
     print("Tables created successfully in PostgreSQL ")

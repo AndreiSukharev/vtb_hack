@@ -5,7 +5,7 @@ services:
 
   backend:
     container_name: flask
-    build: ./backend
+    build: backend
     restart: always
     ports:
       - "5000:5000"
@@ -15,6 +15,20 @@ services:
       - db
     env_file: .env
     entrypoint: ["python", "main.py"]
+
+#  client:
+#    container_name: vue
+#    build: client
+#    volumes:
+#      - './client:/app/client'
+#      - '/app/client/node_modules'
+#    ports:
+#      - '8080:8080'
+#    depends_on:
+#      - backend
+#    environment:
+#      - VUE_APP_HOST_URL=http://localhost:5000
+
 
   db:
     container_name: postgres

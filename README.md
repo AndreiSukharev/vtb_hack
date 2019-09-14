@@ -4,7 +4,7 @@ web service for the joint approval of new documents and projects
 
 [Server] Python (Flask)
 
-[Client] React
+[Client] Vue
 
 [Database] PostgreSQL
 
