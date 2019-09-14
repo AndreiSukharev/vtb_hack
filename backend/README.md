@@ -50,6 +50,18 @@ Response for getting one user:
 }
 
 ```
+### Docs
+```
+GET     /api/docs  -> get all docs
+GET     /api/docs/<doc_id>  -> get doc by id
+POST    /api/docs -> start a doc
+```
+Example POST response
+```
+{
+	"doc_id": 1
+}
+```
 
 ### Chats
 

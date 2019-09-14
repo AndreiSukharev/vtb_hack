@@ -13,12 +13,12 @@ from app.resources.Common.UsersCommon import UsersCommon
 password = UsersCommon.to_hash('123Wertyq')
 users = [
     {
-        'email': "mr.andrey.sd@mail.ru",
+        'email': "mr.andrey.sd@gmail.com",
         'login': 'Andrei',
         'password': password
     },
     {
-        'email': "nik3.mr@mail.ru",
+        'email': "nik3.mr@gmail.com",
         'login': 'Artem',
         'password': password
     },

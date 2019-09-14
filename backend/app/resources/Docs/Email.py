@@ -1,26 +1,24 @@
-# from app.resources.Common.Base import Base
+from app.resources.Common.Base import Base
 from flask_mail import Mail, Message
-from flask import session, current_app
+from flask import session, current_app, redirect,request
 import os
 
-class Email:
 
+class Email(Base):
     @staticmethod
-    def send_email_confirmation(email, login, token):
+    def send_email_votes(email, login, id, doc):
         mail = Mail(current_app)
         host = os.environ['HOST']
-        link = "http://{}:5000/api/signup?token={}&login={}".format(host, token, login)
+        link = "http://{}:4440/api/email?login={}&id={}&doc={}".format(host, login, id, doc)
         html = """  <h3>Добрый день {}!<h3>
                     <p>Открылось новое голосвание, пройдите, пожалайста, по ссылке</p>
-                    <p>Check your login: {}</p>
-                    <p>To activate your account click the link below.</p>
-                    <a href={}>Activate</a>
+                    <a href={}>Перейти</a>
                 """.format(login, link)
         msg = Message(
-            subject = "Matcha Confirmation",
+            subject="Хакатон Голосвание SegFault",
             sender=current_app.config.get("MAIL_USERNAME"),
             recipients=[email],
-            html = html
+            html=html
         )
         try:
             mail.send(msg)
@@ -28,30 +26,12 @@ class Email:
         except Exception as error:
             print(error)
             return "error"
-    # def manage_notification(self, user_id, action):
-    #     # sql = "SELECT email, user_name FROM users WHERE user_id = %s;"
-    #     # record = (user_id,)
-    #     # base = Base()
-    #     # user = base.base_get_one(sql, record)
-    #     # res = self.__send_email_notification(user['email'], user['user_name'], action)
-    #     # return res
-    #     return "ok"
-    #
-    # def __send_email_notification(self, email, name, action):
-    #     from_who = session['login']
-    #     mail = Mail(current_app)
-    #     html = """  <h3>Hello {}!<h3>
-    #                 <p>Your profile has been {} by {}</p>
-    #             """.format(name, action, from_who)
-    #     msg = Message(
-    #         subject="Matcha Notification",
-    #         sender=current_app.config.get("MAIL_USERNAME"),
-    #         recipients=[email],
-    #         html=html
-    #     )
-    #     try:
-    #         mail.send(msg)
-    #         return "ok"
-    #     except Exception as error:
-    #         print(error)
-    #         return "error"
+
+    def get(self):
+        login = request.args.get('login')
+        user_id = request.args.get('id')
+        doc = request.args.get('doc')
+        session['login'] = login
+        session['user_id'] = id
+        url = "http://www.localhost:5000/doc{}?login={}&id={}".format(doc,login, user_id)
+        return redirect(url, code=302)
