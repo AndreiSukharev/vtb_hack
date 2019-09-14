@@ -5,13 +5,15 @@ class Models:
                 email           VARCHAR(64)     UNIQUE,
                 login           VARCHAR (64)    NOT NULL UNIQUE,
                 password        VARCHAR(1024),
+                online          BOOLEAN         DEFAULT '0',
                 room            TEXT[]
                 );'''
 
     docs = '''
              CREATE TABLE IF NOT EXISTS docs(
-             doc_id        SERIAL          NOT NULL PRIMARY KEY,
-             doc_name      VARCHAR(64)     NOT NULL
+             doc_id         SERIAL          NOT NULL PRIMARY KEY,
+             doc_name       VARCHAR(64)     NOT NULL,
+             creationDate   INT
              );
             '''
     docs_users = '''
@@ -24,7 +26,7 @@ class Models:
     votes = '''
                 CREATE TABLE IF NOT EXISTS votes(
                 vote_id        SERIAL          NOT NULL PRIMARY KEY,
-                chat_name      VARCHAR(64)     NOT NULL,
+                vote_name      VARCHAR(64)     NOT NULL,
                 plus           INT,
                 minus          INT
             );'''

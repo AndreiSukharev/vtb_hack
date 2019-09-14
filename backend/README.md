@@ -10,18 +10,21 @@ Schemas are in backend/db/models.py
  
  ### Sign In
 ```
-POST     /api/signin -> Sign In
-```
-
-These keys are required to sign in a user:
-```
-login, password
+POST     /api/signin
 ```
 Example for POST:
 ```
 {
     "login": "test1",
     "password": "123Wertyq"
+}
+ ```
+ 
+Request:
+ ```
+{
+    "login": "TestUser",
+    "id": 1
 }
  ```
 

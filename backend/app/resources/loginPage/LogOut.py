@@ -5,7 +5,7 @@ from flask_jwt_extended import get_raw_jwt, jwt_required
 
 class LogOut(Base):
 
-    def delete(self):
+    def delete(self, user_id):
         try:
             session['login'] = ''
             session['user_id'] = ''

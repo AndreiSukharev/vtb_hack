@@ -11,7 +11,7 @@ class SignIn(UsersCommon):
             result = self.__check_login_password(login, password_request)
             if result != "ok":
                 return {'message': result}
-            return "ok"
+            return {'login': session['login'], 'id': session['user_id']}
         except Exception as e:
             print(e)
             return e

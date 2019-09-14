@@ -44,6 +44,8 @@ users = [
     },
 ]
 
+docs = ['ПАО НК Роснефть', 'ПАО РусГидро', 'ПАО Сбербанк']
+
 
 def create_user(user):
     sql = """INSERT INTO   users (email, login, password)
@@ -53,12 +55,39 @@ def create_user(user):
     cursor.execute(sql, record)
     connection.commit()
 
-i = 0
+
+def create_doc(doc):
+    sql = """   INSERT INTO   docs (doc_name)
+                VALUES (%s)
+            ;"""
+    record = (doc,)
+    cursor.execute(sql, record)
+    connection.commit()
+
+
+def create_docs_users(doc_id, user_for_docs):
+    for user_id in range(1, user_for_docs):
+        sql = """   INSERT INTO  docs_users (user_id, doc_id)
+                    VALUES (%s, %s)
+                    ;"""
+        record = (user_id, doc_id)
+        cursor.execute(sql, record)
+        connection.commit()
+
 connection, cursor = start_connection()
 try:
+    for doc in docs:
+        create_doc(doc)
     for user in users:
-        i += 1
         create_user(user)
+    for doc_id in range(1, len(docs) + 1):
+        if doc_id == 1:
+            user_for_docs = len(users) + 1
+        elif doc_id == 2:
+            user_for_docs = len(users)
+        else:
+            user_for_docs = len(users) - 1
+        create_docs_users(doc_id, user_for_docs)
 
 
 except Exception as e:

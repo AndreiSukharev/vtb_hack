@@ -11,6 +11,10 @@ from app.resources.Users.Users import Users
 from app.resources.Users.UserId import UserId
 from .resources.loginPage.SignIn import SignIn
 from .resources.loginPage.LogOut import LogOut
+from app.resources.Docs.Doc import Doc
+from app.resources.Docs.Docs import Docs
+
+
 from app.resources.Chat.Chats import Chats
 from app.resources.Chat.ChatId import ChatId
 from app.resources.Chat.ChatSocket import ChatSocket
@@ -31,13 +35,14 @@ socketio = SocketIO(app, cors_allowed_origins='*', cors_credentials=True)
 
 # Route
 api.add_resource(SignIn, '/signin')
-api.add_resource(LogOut, '/logout')
+api.add_resource(LogOut, '/logout/<user_id>')
 api.add_resource(Users, '/users')
 api.add_resource(UserId, '/users/<user_id>')
+api.add_resource(Docs, '/docs')
+api.add_resource(Doc, '/docs/<doc_id>')
 api.add_resource(Chats, '/chats')
 api.add_resource(ChatId, '/chats/<chat_id>')
 
-# todo: logout
 # chat
 socketio.on_namespace(ChatSocket('/api/socket'))
 
