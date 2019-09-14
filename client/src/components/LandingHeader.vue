@@ -1,9 +1,9 @@
 <template>
   <header>
     <p>Header</p>
-    <router-link to="/"><h2>Home</h2></router-link>
-    <router-link>Chat</router-link>
-    <router-link>Huyat</router-link>
+<!--    <router-link to="/"><h2>Home</h2></router-link>-->
+<!--    <router-link>Chat</router-link>-->
+<!--    <router-link>Huyat</router-link>-->
   </header>
 </template>
 

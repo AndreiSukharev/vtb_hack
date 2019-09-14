@@ -1,7 +1,12 @@
 <template>
   <div class="wrapper">
     <article class="container votes">
-      <h1>I'm here</h1>
+      <vote-subject
+        v-for="vote in this.getVotes"
+        v-bind:document-id="vote.doc_id"
+        v-bind:vote-id="vote.vote_id"
+      >
+      </vote-subject>
     </article>
     <div class="container sidebar">
       <router-view></router-view>
@@ -10,8 +15,26 @@
 </template>
 
 <script>
+    import VoteSubject from "../Vote/VoteSubject.vue";
+
     export default {
-        name: "DocumentScreen"
+        name: "DocumentScreen",
+        components: {VoteSubject},
+        props: ['documentId'],
+        beforeMount() {
+          this.$apiClient.getDocument(this.$route.params.documentId)
+              .then(function (response) {
+                  console.log(response)
+                  this.$store.commit('setVotes', response.data.votes);
+              }.bind(this)).catch(error => {
+                  console.log(error);
+          })
+        },
+        computed: {
+            getVotes(){
+                return this.$store.state.votes;
+            }
+        }
     }
 </script>
 
@@ -32,10 +55,14 @@
   }
 
   .votes {
-    flex: 0 0 70%;
+    flex: 0 0 40%;
+    display: flex;
+    flex-flow: column nowrap;
   }
 
   .sidebar {
-    /*flex: 0 1 30%;*/
+    flex: 0 0 60%;
+    align-items: center;
+    justify-content: center;
   }
 </style>

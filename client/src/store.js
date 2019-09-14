@@ -7,7 +7,8 @@ const debug = process.env.NODE_ENV !== 'production';
 const state = {
   login: '',
   password: '',
-  documents: []
+  documents: [],
+  votes: []
 };
 
 // mutations
@@ -20,13 +21,17 @@ const mutations = {
   },
   setDocuments: (state, value) => {
     state.documents = value;
+  },
+  setVotes: (state, value) => {
+    state.votes = value;
   }
 };
 
 const getters = {
   getLogin: state => state.login,
   getPassword: state => state.password,
-  getDocuments: state => state.documents
+  getDocuments: state => state.documents,
+  getVotes: state => state.votes
 };
 
 export default new Vuex.Store({
