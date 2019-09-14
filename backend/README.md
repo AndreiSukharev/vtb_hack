@@ -81,6 +81,18 @@ Request:
 ]
 
 ```
+### Votes
+```
+POST     /api/votes
+```
+Example POST response
+```
+{
+	"vote_id": 1,
+	"user_id": 2,
+	"vote": -1 -> -1 vote against, 1 vote for
+}
+```
 
 ### Chats
 

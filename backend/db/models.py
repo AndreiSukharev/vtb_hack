@@ -39,7 +39,7 @@ class Models:
                 CREATE TABLE IF NOT EXISTS votes_users(
                  vote_id     INT REFERENCES votes (vote_id) ON DELETE CASCADE,
                  user_id     INT REFERENCES users (user_id) ON DELETE CASCADE,
-                 vote        INT DEFAULT 0
+                 vote        INT
                 );'''
 
 
