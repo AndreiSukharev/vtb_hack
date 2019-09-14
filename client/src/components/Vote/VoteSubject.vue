@@ -24,5 +24,10 @@
     color: #fff;
     background-color: var(--primary);
     margin-bottom: 32px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 2rem;
+    text-align: left;
   }
 </style>
