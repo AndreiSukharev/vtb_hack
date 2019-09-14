@@ -1,0 +1,19 @@
+# IDE files
+.idea/
+.vscode/
+
+# Mac
+.DS_Store
+
+
+# Front
+client/node_modules
+
+
+# Cache
+backend/__pycache__/
+backend/db/__pycache__/
+backend/app/__pycache__/
+backend/app/resources/__pycache__/
+backend/app/resources/Users/__pycache__/
+backend/app/resources/Common/__pycache__/
