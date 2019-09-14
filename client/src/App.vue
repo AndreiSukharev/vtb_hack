@@ -2,7 +2,7 @@
   <div class="app" ref="container">
     <landing-header></landing-header>
     <router-view></router-view>
-    <landing-footer bank="TCB"></landing-footer>
+    <landing-footer></landing-footer>
   </div>
 </template>
 
@@ -17,7 +17,10 @@ export default {
     LandingHeader
   },
   mounted() {
-    this.$root.$store.commit('setIsLoading', false);
+      console.log(this.$session.exists());
+      if (!this.$session.exists()) {
+          this.$router.push('/login');
+      }
   }
 };
 </script>
@@ -29,10 +32,10 @@ export default {
   --inactive: #d1d4d8;
   --black: #696969;
   --button-disabled: rgba(20, 154, 154, 0.6);
-  --primary: #18b7b7;
+  --primary: #0A2896;
   --secondary: #9d397e;
-  --button-hover: #149a9a;
-  --header-background: #282b33;
+  --button-hover: #091e6f;
+  --header-background: #0A2896;
   --footer-background: #f6f7f9;
   --footer: #ccc;
 }
@@ -54,7 +57,6 @@ body {
 
 .app {
   color: #444;
-  max-width: 600px;
   text-align: center;
   display: flex;
   align-items: center;

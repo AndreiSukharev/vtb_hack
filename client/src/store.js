@@ -3,13 +3,31 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-const getters = {};
 const debug = process.env.NODE_ENV !== 'production';
-
-const state = {};
+const state = {
+  login: '',
+  password: '',
+  documents: []
+};
 
 // mutations
-const mutations = {};
+const mutations = {
+  setLogin: (state, value) => {
+    state.login = value;
+  },
+  setPassword: (state, value) => {
+    state.password = value;
+  },
+  setDocuments: (state, value) => {
+    state.documents = value;
+  }
+};
+
+const getters = {
+  getLogin: state => state.login,
+  getPassword: state => state.password,
+  getDocuments: state => state.documents
+};
 
 export default new Vuex.Store({
   state: state,

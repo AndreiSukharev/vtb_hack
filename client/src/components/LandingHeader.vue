@@ -1,6 +1,9 @@
 <template>
   <header>
     <p>Header</p>
+    <router-link to="/"><h2>Home</h2></router-link>
+    <router-link>Chat</router-link>
+    <router-link>Huyat</router-link>
   </header>
 </template>
 
@@ -21,7 +24,6 @@ header {
   display: flex;
   align-content: space-between;
   justify-content: space-between;
-  border-bottom: 6px solid var(--secondary);
   text-align: left;
   padding: 0 16px;
 }

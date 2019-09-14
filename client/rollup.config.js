@@ -14,7 +14,7 @@ const plugins = [
   replace({
     'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'develop')
   }),
-  resolve(),
+  resolve({ jsnext: true, preferBuiltins: true, browser: true }),
   babel({
     exclude: 'node_modules/**'
   }),
@@ -24,7 +24,7 @@ const plugins = [
 let config = {
   input: 'src/main.js',
   output: {
-    file: 'dist/app.js',
+    file: 'dist/assets/app.js',
     format: 'iife',
     sourcemap: true
   },
