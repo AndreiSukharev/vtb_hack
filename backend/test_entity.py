@@ -48,14 +48,14 @@ docs = ['ПАО НК Роснефть', 'ПАО РусГидро', 'ПАО Сб�
 votes = ['first', 'second', 'third', 'fourth', 'first', 'second', 'third', 'fourth', 'first', 'second', 'third', 'fourth']
 chats = ['Опрос 1', 'Опрос 2', 'Опрос 3', 'Опрос 4', 'Опрос 1', 'Опрос 2', 'Опрос 3', 'Опрос 4', 'Опрос 1', 'Опрос 2', 'Опрос 3', 'Опрос 4']
 
-# def create_chat_votes(doc_id, user_for_docs):
-#     for user_id in range(1, user_for_docs):
-#         sql = """   INSERT INTO  docs_users (user_id, doc_id)
-#                     VALUES (%s, %s)
-#                     ;"""
-#         record = (user_id, doc_id)
-#         cursor.execute(sql, record)
-#         connection.commit()
+def create_docs_votes(doc_id):
+    for vote_id in range(1, 5):
+        sql = """   INSERT INTO  docs_votes (vote_id, doc_id)
+                    VALUES (%s, %s)
+                    ;"""
+        record = (vote_id, doc_id)
+        cursor.execute(sql, record)
+        connection.commit()
 
 
 def create_vote(vote):
@@ -120,9 +120,13 @@ try:
     for vote in votes:
         create_vote(vote)
     i = 0
+    # chats
     for chat in chats:
         i += 1
         create_chats(chat, i)
+#     docs_votes
+    for doc_id in range(1, len(docs) + 1):
+        create_docs_votes(doc_id)
 
 except Exception as e:
     print(e)

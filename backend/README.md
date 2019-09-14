@@ -63,6 +63,25 @@ Example POST response
 }
 ```
 
+Request:
+```
+[
+    {
+        "doc_id": 1,
+        "doc_name": "ПАО НК Роснефть",
+        "creationdate": null,
+        "members": 5
+    },
+    {
+        "doc_id": 2,
+        "doc_name": "ПАО РусГидро",
+        "creationdate": null,
+        "members": 6
+    }
+]
+
+```
+
 ### Chats
 
 ```
