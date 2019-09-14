@@ -7,6 +7,15 @@ class Messages(Base):
 
     creation_date = ''
 
+    # def get(self):
+    #     message = {
+    #         'text': 'asdasd',
+    #         'chat_id': '1',
+    #         'creation_date': 'today'
+    #     }
+    #     self.handle_message(message)
+    #     return 'ok'
+
     def handle_message(self, message):
         text = message['text']
         chat_id = message['chat_id']

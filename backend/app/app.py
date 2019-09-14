@@ -14,6 +14,9 @@ from .resources.loginPage.LogOut import LogOut
 from app.resources.Docs.Doc import Doc
 from app.resources.Docs.Docs import Docs
 from app.resources.Docs.Email import Email
+from app.resources.Chat.Messages import Messages
+from app.resources.Votes.Votes import Vote
+
 
 from app.resources.Chat.Chats import Chats
 from app.resources.Chat.ChatId import ChatId
@@ -41,6 +44,8 @@ api.add_resource(UserId, '/users/<user_id>')
 api.add_resource(Docs, '/docs')
 api.add_resource(Email, '/email')
 api.add_resource(Doc, '/docs/<doc_id>')
+api.add_resource(Vote, '/votes')
+api.add_resource(Messages, '/messages')
 api.add_resource(Chats, '/chats')
 api.add_resource(ChatId, '/chats/<chat_id>')
 

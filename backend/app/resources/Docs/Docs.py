@@ -7,15 +7,6 @@ import datetime
 class Docs(Base):
 
     def get(self):
-        # sql = """
-        #         SELECT  d.*, du.members
-        #         FROM docs d
-        #         LEFT JOIN (
-        #             SELECT SUM (user_id) as members
-        #             FROM docs_users
-        #         ) du ON du.doc_id = 1
-        #         WHERE d.doc_id = 1
-        #     ;"""
         sql = """
                         SELECT  d.*, COUNT (du.user_id) as members
                         FROM docs as d, docs_users as du

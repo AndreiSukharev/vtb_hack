@@ -38,7 +38,8 @@ class Models:
     votes_users = '''
                 CREATE TABLE IF NOT EXISTS votes_users(
                  vote_id     INT REFERENCES votes (vote_id) ON DELETE CASCADE,
-                 user_id     INT REFERENCES users (user_id) ON DELETE CASCADE
+                 user_id     INT REFERENCES users (user_id) ON DELETE CASCADE,
+                 vote        INT DEFAULT 0
                 );'''
 
 
@@ -46,7 +47,8 @@ class Models:
                 CREATE TABLE IF NOT EXISTS chats(
                 chat_id        SERIAL          NOT NULL PRIMARY KEY,
                 chat_name      VARCHAR(64)     NOT NULL,
-                vote_id  INT REFERENCES votes (vote_id) ON DELETE CASCADE
+                vote_id     INT REFERENCES votes (vote_id) ON DELETE CASCADE,
+                doc_id     INT REFERENCES docs (doc_id) ON DELETE CASCADE
                 );'''
 
 
