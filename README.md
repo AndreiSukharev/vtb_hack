@@ -36,6 +36,12 @@ npm run serve
 front: http://localhost:8080
 server: http://localhost:5000/ 
 ```
+#### Test
+
+Create test users:
+```
+docker exec flask bash -c "python test_entity.py"
+```
 
 #### Note Docker
 

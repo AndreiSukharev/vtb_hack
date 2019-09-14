@@ -11,7 +11,38 @@ from app.resources.Common.UsersCommon import UsersCommon
 
 
 password = UsersCommon.to_hash('123Wertyq')
-users = []
+users = [
+    {
+        'email': "mr.andrey.sd@mail.ru",
+        'login': 'Andrei',
+        'password': password
+    },
+    {
+        'email': "nik3.mr@mail.ru",
+        'login': 'Artem',
+        'password': password
+    },
+    {
+        'email': "vladisslaww@gmail.com",
+        'login': 'Vladislav',
+        'password': password
+    },
+    {
+        'email': "juliarychkova1@gmail.com",
+        'login': 'Julia',
+        'password': password
+    },
+    {
+        'email': "curetoyou@gmail.com",
+        'login': 'Vova',
+        'password': password
+    },
+    {
+        'email': "innmaster38@gmail.com",
+        'login': 'Master',
+        'password': password
+    },
+]
 
 
 def create_user(user):
