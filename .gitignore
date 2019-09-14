@@ -6,6 +6,7 @@
 .DS_Store
 
 /node_modules
+client/node_modules
 
 # Front
 frontend/node_modules
