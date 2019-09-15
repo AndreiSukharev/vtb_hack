@@ -11,7 +11,7 @@ const state = {
   documents: [],
   votes: [],
   chats: [],
-  fullTime: 400,
+  fullTime: 20*60,
   timePassed: 0
 };
 
@@ -42,6 +42,9 @@ const mutations = {
     if (!value.plus) {
       state.votes.filter(votes => votes.vote_id == value.voteId)[0].minus += 1;
     }
+  },
+  setTimePassed: (state, value) => {
+    state.timePassed = parseInt(value);
   }
 };
 
@@ -57,7 +60,7 @@ const getters = {
   getChatById: state => chatId => {
     return state.chats.filter(chat => chat.chat_id == chatId)[0];
   },
-  getUserId: state => state.userId
+  getUserId: state => state.userId,
 };
 
 export default new Vuex.Store({

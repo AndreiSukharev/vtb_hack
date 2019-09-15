@@ -100,7 +100,7 @@
     font-size: 1.2rem;
     font-weight: 500;
     border-radius: 5px;
-    margin-bottom: 5px;
+    margin: 0 5px 5px;
   }
 
   .author {
