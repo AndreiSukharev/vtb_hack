@@ -21,6 +21,11 @@ export default {
       if (!this.$session.exists()) {
           this.$router.push('/login');
       }
+  },
+  sockets: {
+    connect: function () {
+      console.log('socket connected');
+    },
   }
 };
 </script>
