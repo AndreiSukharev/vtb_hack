@@ -8,8 +8,16 @@ class Doc(Base):
     def get(self, doc_id):
         votes = self.get_votes(doc_id)
         chats = self.get_chats(doc_id)
-        res = {'votes': votes, 'chats': chats}
+        chats_mess = self.manage_chat_messages(chats)
+        res = {'votes': votes, 'chats': chats_mess}
+
         return res
+
+    def manage_chat_messages(self, chats):
+        for i in range(len(chats)):
+            messages = self.__get_messages(chats[i]['chat_id'])
+            chats[i]['messages'] = messages
+        return chats
 
     def get_chats(self, doc_id):
         sql = """

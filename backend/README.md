@@ -63,22 +63,39 @@ Example POST response
 }
 ```
 
-Request:
+Request POST:
 ```
-[
-    {
-        "doc_id": 1,
-        "doc_name": "ПАО НК Роснефть",
-        "creationdate": null,
-        "members": 5
-    },
-    {
-        "doc_id": 2,
-        "doc_name": "ПАО РусГидро",
-        "creationdate": null,
-        "members": 6
-    }
-]
+{
+    "votes": [
+        {
+            "vote_id": 2,
+            "vote_text": "Дальнее зарубежье: В связи с тем, что наш проект заинтересовал транснациональной компанию schneider electric в рамках конкурса Go Green in the City, мы планируем через ее дочерние компании внедрить наше решение в страны Европы и Северной Америки, где основными потребителями с наибольшим объемом рынка и количеством повреждений",
+            "plus": 0,
+            "minus": 0,
+            "doc_id": 1
+        },
+     ],
+     "chats": [
+        {
+            "chat_id": 1,
+            "chat_name": "Опрос 1",
+            "vote_id": 1,
+            "doc_id": 1,
+            "messages": [
+                {
+                    "creation_date": "today",
+                    "text": "asdasd",
+                    "author": "Andrei"
+                },
+                {
+                    "creation_date": "today",
+                    "text": "asdasd",
+                    "author": "Andrei"
+                }
+            ]
+        }
+     ]
+}
 
 ```
 ### Votes
