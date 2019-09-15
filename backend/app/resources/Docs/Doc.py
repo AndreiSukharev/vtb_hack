@@ -23,7 +23,8 @@ class Doc(Base):
         record = (doc_id,)
         doc = self.base_get_one(sql, record)
         cur_time = datetime.datetime.now().timestamp()
-        cur_time -= doc['creationdate']
+        if doc.get('creationdate'):
+            cur_time -= doc['creationdate']
         return cur_time
 
 
