@@ -1,7 +1,7 @@
 <template>
   <article class="container__document">
     <div class="container__document__logo">
-      <img src="assets/Ellipse.png" alt="">
+      <img :src="src" alt="">
     </div>
     <div class="container__document__main">
       <h3>{{ name }}</h3>
@@ -35,6 +35,9 @@
             },
             linkToResult(){
                 return `/result/${this.documentId}`
+            },
+            src(){
+                return `/assets/${this.documentId}.png`
             }
         },
         methods: {
