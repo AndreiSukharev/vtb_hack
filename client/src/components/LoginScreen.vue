@@ -61,6 +61,10 @@
                         console.log(response);
                         if (response.data.id !== undefined) {
                             this.$session.start();
+                            this.$session.set('login', this.getLogin);
+                            this.$session.set('userId', response.data.id);
+                            this.$store.commit('setLogin', this.$session.get('login'));
+                            this.$store.commit('setUserId', this.$session.get('userId'));
                             this.$router.push('/');
                         }
                     }.bind(this)).catch(err => {

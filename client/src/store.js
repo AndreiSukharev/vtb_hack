@@ -7,6 +7,7 @@ const debug = process.env.NODE_ENV !== 'production';
 const state = {
   login: '',
   password: '',
+  userId: 0,
   documents: [],
   votes: [],
   chats: []
@@ -28,6 +29,9 @@ const mutations = {
   },
   setChats: (state, value) => {
     state.chats = value;
+  },
+  setUserId: (state, value) => {
+    state.userId = value;
   }
 };
 
@@ -43,7 +47,7 @@ const getters = {
   getChatById: state => chatId => {
     return state.chats.filter(chat => chat.chat_id == chatId)[0];
   },
-
+  getUserId: state => state.userId
 };
 
 export default new Vuex.Store({
