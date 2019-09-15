@@ -49,6 +49,10 @@
         this.$socket.emit('join', val);
       }
     },
+    created() {
+      this.getChat()
+      this.$socket.emit('join', this.chatid);
+    },
     filters: {
       filterMessage: function (value) {
         let date = new Date(value.creation_date).toLocaleTimeString();

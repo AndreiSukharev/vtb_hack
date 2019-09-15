@@ -13534,6 +13534,10 @@
         this.$socket.emit('join', val);
       }
     },
+    created: function created() {
+      this.getChat();
+      this.$socket.emit('join', this.chatid);
+    },
     filters: {
       filterMessage: function filterMessage(value) {
         var date = new Date(value.creation_date).toLocaleTimeString();
@@ -13632,7 +13636,7 @@
     /* style */
     const __vue_inject_styles__$b = undefined;
     /* scoped */
-    const __vue_scope_id__$b = "data-v-a7b0e89e";
+    const __vue_scope_id__$b = "data-v-96fbd570";
     /* module identifier */
     const __vue_module_identifier__$b = undefined;
     /* functional template */

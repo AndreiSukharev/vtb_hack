@@ -15,7 +15,7 @@ web service for the joint approval of new documents and projects
 
 #### Install npm
 ```
-brew install node
+brew install yarn
 ```
 
 #### Install docker
@@ -31,10 +31,10 @@ git clone https://github.com/AndreiSukharev/diversity_hack.git diversity_hack
 cd vtb_hack
 docker-compose up --build
 cd client
-npm i
-npm run serve
-front: http://localhost:8080
-server: http://localhost:5000/ 
+yarn install
+yarn dev
+front: http://localhost:5000
+server: http://localhost:4440/ 
 ```
 #### Test
 
