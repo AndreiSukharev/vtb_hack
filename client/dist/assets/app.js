@@ -13323,24 +13323,22 @@
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _c(
-      "div",
-      [
-        _c("moon-loader", {
-          staticClass: "spinner",
-          attrs: { loading: true, color: "#0A2896", size: "300" }
-        })
-      ],
-      1
-    )
+    return _vm._m(0)
   };
-  var __vue_staticRenderFns__$9 = [];
+  var __vue_staticRenderFns__$9 = [
+    function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c("div", [_c("h2", [_vm._v("Choose the subject")])])
+    }
+  ];
   __vue_render__$9._withStripped = true;
 
     /* style */
     const __vue_inject_styles__$9 = undefined;
     /* scoped */
-    const __vue_scope_id__$9 = "data-v-d04e2fe2";
+    const __vue_scope_id__$9 = "data-v-e9ee02e6";
     /* module identifier */
     const __vue_module_identifier__$9 = undefined;
     /* functional template */
@@ -13371,39 +13369,45 @@
         minusDisabled: false
       };
     },
+    mounted: function mounted() {
+      this.plusDisabled = false;
+      this.minusDisabled = false;
+    },
     computed: _objectSpread2({}, mapGetters(['getVoteById', 'getUserId'])),
     methods: {
-      download: function download() {
-        this.$apiClient.download().then(function (response) {
-          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-          var fileLink = document.createElement('a');
-          fileLink.href = fileURL;
-          fileLink.setAttribute('download', 'file.pdf');
-          document.body.appendChild(fileLink);
-          fileLink.click();
-        });
-      },
       vote: function vote(plus) {
+        var _this = this;
+
         if (plus) {
           this.$apiClient.vote(this.voteId, this.getUserId, 1).then(function (response) {
-            console.log(response);
-            this.$store.commit('vote', {
-              plus: true,
-              voteId: this.voteId
-            });
+            console.log(response); // this.$store.commit('vote', {plus: true, voteId: this.voteId});
+
             this.plusDisabled = true;
             this.minusDisabled = false;
-          }.bind(this));
+          }.bind(this)).then(function () {
+            _this.$apiClient.getDocument(_this.$route.params.documentId).then(function (response) {
+              console.log(response);
+              this.$store.commit('setVotes', response.data.votes);
+              this.$store.commit('setChats', response.data.chats);
+            }.bind(_this))["catch"](function (error) {
+              console.log(error);
+            });
+          });
         } else {
           this.$apiClient.vote(this.voteId, this.getUserId, -1).then(function (response) {
-            console.log(response);
-            this.$store.commit('vote', {
-              plus: false,
-              voteId: this.voteId
-            });
+            console.log(response); // this.$store.commit('vote', {plus: false, voteId: this.voteId});
+
             this.plusDisabled = false;
             this.minusDisabled = true;
-          }.bind(this));
+          }.bind(this)).then(function () {
+            _this.$apiClient.getDocument(_this.$route.params.documentId).then(function (response) {
+              console.log(response);
+              this.$store.commit('setVotes', response.data.votes);
+              this.$store.commit('setChats', response.data.chats);
+            }.bind(_this))["catch"](function (error) {
+              console.log(error);
+            });
+          });
         }
       }
     }
@@ -13426,11 +13430,7 @@
       _c("div", { staticClass: "form" }, [
         _c(
           "button",
-          {
-            staticClass: "form__button",
-            attrs: { disabled: _vm.plusDisabled },
-            on: { click: _vm.download }
-          },
+          { staticClass: "form__button", attrs: { disabled: _vm.plusDisabled } },
           [_c("span", [_vm._v("Documentation")])]
         ),
         _vm._v(" "),
@@ -13484,7 +13484,7 @@
     /* style */
     const __vue_inject_styles__$a = undefined;
     /* scoped */
-    const __vue_scope_id__$a = "data-v-39c1f7ee";
+    const __vue_scope_id__$a = "data-v-6b0e4a08";
     /* module identifier */
     const __vue_module_identifier__$a = undefined;
     /* functional template */
@@ -13511,6 +13511,11 @@
     props: {
       chatid: ''
     },
+    computed: _objectSpread2({
+      getClass: function getClass(userId) {
+        return userId == this.getUserId ? 'author' : '';
+      }
+    }, mapGetters(['getLogin', 'getUserId', 'getUserId'])),
     data: function data() {
       return {
         messages: [],
@@ -13536,11 +13541,11 @@
     filters: {
       filterMessage: function filterMessage(value) {
         var date = new Date(value.creation_date).toLocaleTimeString();
-        var message = "".concat(value.author, " ").concat(date, ": ").concat(value.text);
+        var message = "".concat(value.author, " ").concat(date, " : ").concat(value.text);
         return message;
       }
     },
-    methods: _objectSpread2({}, mapGetters(['getLogin', 'getUserId', 'getUserId']), {
+    methods: {
       getChat: function getChat() {
         var _this = this;
 
@@ -13550,15 +13555,15 @@
         });
       },
       sendMessage: function sendMessage() {
-        this.dataToSend.author = this.getLogin();
+        this.dataToSend.author = this.getLogin;
         this.dataToSend.creation_date = new Date();
         this.dataToSend.chat_id = this.chatid;
-        this.dataToSend.user_id = this.getUserId();
+        this.dataToSend.user_id = this.getUserId;
         console.log(this.dataToSend);
         this.$socket.emit('message', this.dataToSend);
         this.dataToSend.text = '';
       }
-    }),
+    },
     sockets: {
       receive_message: function receive_message(message) {
         this.messages.push(message);
@@ -13577,12 +13582,19 @@
       _vm.messages.length > 0
         ? _c(
             "div",
+            { staticClass: "messages" },
             _vm._l(_vm.messages, function(message) {
-              return _c("div", [
-                _vm._v(
-                  "\n      " + _vm._s(_vm._f("filterMessage")(message)) + "\n    "
-                )
-              ])
+              return _c(
+                "div",
+                { class: message.author == _vm.getLogin ? "author" : "" },
+                [
+                  _vm._v(
+                    "\n      " +
+                      _vm._s(_vm._f("filterMessage")(message)) +
+                      "\n    "
+                  )
+                ]
+              )
             }),
             0
           )
@@ -13610,7 +13622,11 @@
           }
         }),
         _vm._v(" "),
-        _c("button", { on: { click: _vm.sendMessage } }, [_vm._v("Send")])
+        _c(
+          "button",
+          { staticClass: "form__button", on: { click: _vm.sendMessage } },
+          [_c("span", [_vm._v("Send")])]
+        )
       ])
     ])
   };
@@ -13620,7 +13636,7 @@
     /* style */
     const __vue_inject_styles__$b = undefined;
     /* scoped */
-    const __vue_scope_id__$b = "data-v-70f53d19";
+    const __vue_scope_id__$b = "data-v-74fb6b2a";
     /* module identifier */
     const __vue_module_identifier__$b = undefined;
     /* functional template */

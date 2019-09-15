@@ -9,7 +9,7 @@
 
     <div>
       <input type="text" v-model="dataToSend.text">
-      <button @click="sendMessage">Send</button>
+      <button class="form__button" @click="sendMessage"><span>Send</span></button>
     </div>
 
   </div>
@@ -56,7 +56,7 @@
     filters: {
       filterMessage: function (value) {
         let date = new Date(value.creation_date).toLocaleTimeString();
-        let message = `${value.author}${date} : ${value.text}`;
+        let message = `${value.author} ${date} : ${value.text}`;
         return message
       }
     },
@@ -100,10 +100,64 @@
     font-size: 1.2rem;
     font-weight: 500;
     border-radius: 5px;
+    margin-bottom: 5px;
   }
 
   .author {
     align-self: flex-end;
     background-color: var(--primary);
+  }
+
+    .form {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+  }
+
+    input{
+      height: 32px;
+    }
+
+  .form__button {
+    flex: 0 0 20%;
+    height: 32px;
+    width: 120px;
+    align-items: center;
+    margin: 0 10px 10px;
+    transition-duration: 0.1s;
+    border: 2px solid var(--primary);
+    color: #fff;
+    background-color: var(--primary);
+  }
+
+  .form__button:disabled {
+    background-color: var(--primary);
+    color: #fff;
+  }
+
+  .form__button:hover:not(.disabled),
+  .form__button:active:not(.disabled) {
+    background-color: var(--button-hover);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .form__button:active:not(.disabled) {
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.16);
+  }
+
+  .form__button.disabled {
+    background-color: var(--button-disabled);
+  }
+
+  .form__button > span {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    font-weight: 500;
+    margin: auto;
+  }
+
+  .form__button input {
+    display: none;
   }
 </style>
