@@ -26,6 +26,7 @@
               .then(function (response) {
                   console.log(response)
                   this.$store.commit('setVotes', response.data.votes);
+                  this.$store.commit('setChats', response.data.chats);
               }.bind(this)).catch(error => {
                   console.log(error);
           })

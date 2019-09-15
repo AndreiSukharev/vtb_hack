@@ -16,6 +16,7 @@ Client.install = function (Vue, options) {
         config.data = data;
       }
       config.method = method;
+      console.log(config);
       return axios.request(config);
     },
     login(login, password) {

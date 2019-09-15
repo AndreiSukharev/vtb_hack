@@ -8,7 +8,8 @@ const state = {
   login: '',
   password: '',
   documents: [],
-  votes: []
+  votes: [],
+  chats: []
 };
 
 // mutations
@@ -24,6 +25,9 @@ const mutations = {
   },
   setVotes: (state, value) => {
     state.votes = value;
+  },
+  setChats: (state, value) => {
+    state.chats = value;
   }
 };
 
@@ -34,7 +38,11 @@ const getters = {
   getVotes: state => state.votes,
   getVoteById: state => voteId => {
     return state.votes.filter(vote => vote.vote_id == voteId)[0];
-  }
+  },
+  getChats: state => state.chats,
+  getChatById: state => chatId => {
+    return state.chats.filter(chat => chat.chat_id == chatId)[0];
+  },
 
 };
 
