@@ -37,6 +37,9 @@ Client.install = function (Vue, options) {
     getDocument(documentId) {
       return this.createRequest(`/api/docs/${documentId}`);
     },
+    download() {
+      return this.createRequest(`/api/download`);
+    },
     activateDocument(documentId) {
       return this.createRequest('/api/docs', 'POST', {doc_id: documentId})
     },

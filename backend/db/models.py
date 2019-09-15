@@ -6,7 +6,7 @@ class Models:
                 login           VARCHAR (64)    NOT NULL UNIQUE,
                 password        VARCHAR(1024),
                 online          BOOLEAN         DEFAULT '0',
-                room            TEXT[]
+                room            TEXT
                 );'''
 
     docs = '''

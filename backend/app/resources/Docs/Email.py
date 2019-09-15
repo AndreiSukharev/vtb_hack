@@ -32,6 +32,7 @@ class Email(Base):
         user_id = request.args.get('id')
         doc = request.args.get('doc')
         session['login'] = login
-        session['user_id'] = id
-        url = "http://www.localhost:5000/doc{}?login={}&id={}".format(doc,login, user_id)
+        session['user_id'] = user_id
+        # url = "http://www.localhost:5000/doc{}?login={}&id={}".format(doc,login, user_id)
+        url = "http://www.localhost:5000/"
         return redirect(url, code=302)

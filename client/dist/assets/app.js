@@ -8421,7 +8421,6 @@
   //
   //
   //
-  //
   var script = {
     name: 'LandingHeader'
   };
@@ -8518,22 +8517,19 @@
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _vm._m(0)
+    return _c(
+      "header",
+      [_c("router-link", { attrs: { to: "/" } }, [_c("h2", [_vm._v("Home")])])],
+      1
+    )
   };
-  var __vue_staticRenderFns__ = [
-    function() {
-      var _vm = this;
-      var _h = _vm.$createElement;
-      var _c = _vm._self._c || _h;
-      return _c("header", [_c("p", [_vm._v("Header")])])
-    }
-  ];
+  var __vue_staticRenderFns__ = [];
   __vue_render__._withStripped = true;
 
     /* style */
     const __vue_inject_styles__ = undefined;
     /* scoped */
-    const __vue_scope_id__ = "data-v-b6cbe76c";
+    const __vue_scope_id__ = "data-v-dbd5d7ce";
     /* module identifier */
     const __vue_module_identifier__ = undefined;
     /* functional template */
@@ -12822,7 +12818,7 @@
     },
     computed: _objectSpread2({
       showImg: function showImg() {
-        return screen.width > 1000;
+        return window.innerWidth > 1200;
       }
     }, mapGetters(['getDocuments']))
   };
@@ -12872,7 +12868,7 @@
     /* style */
     const __vue_inject_styles__$4 = undefined;
     /* scoped */
-    const __vue_scope_id__$4 = "data-v-d7a5a8d2";
+    const __vue_scope_id__$4 = "data-v-eb769162";
     /* module identifier */
     const __vue_module_identifier__$4 = undefined;
     /* functional template */
@@ -13049,7 +13045,7 @@
     props: ['documentId', 'voteId'],
     computed: {
       showText: function showText() {
-        return screen.width > 600;
+        return window.innerWidth > 600;
       },
       link: function link() {
         return "/document/".concat(this.documentId, "/vote/").concat(this.voteId);
@@ -13084,7 +13080,7 @@
     /* style */
     const __vue_inject_styles__$6 = undefined;
     /* scoped */
-    const __vue_scope_id__$6 = "data-v-47ef8c28";
+    const __vue_scope_id__$6 = "data-v-1352bcc4";
     /* module identifier */
     const __vue_module_identifier__$6 = undefined;
     /* functional template */
@@ -13377,6 +13373,16 @@
     },
     computed: _objectSpread2({}, mapGetters(['getVoteById', 'getUserId'])),
     methods: {
+      download: function download() {
+        this.$apiClient.download().then(function (response) {
+          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement('a');
+          fileLink.href = fileURL;
+          fileLink.setAttribute('download', 'file.pdf');
+          document.body.appendChild(fileLink);
+          fileLink.click();
+        });
+      },
       vote: function vote(plus) {
         if (plus) {
           this.$apiClient.vote(this.voteId, this.getUserId, 1).then(function (response) {
@@ -13423,6 +13429,22 @@
           {
             staticClass: "form__button",
             attrs: { disabled: _vm.plusDisabled },
+            on: { click: _vm.download }
+          },
+          [_c("span", [_vm._v("Documentation")])]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "form__button", attrs: { disabled: _vm.plusDisabled } },
+          [_c("span", [_vm._v("Report")])]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "form__button",
+            attrs: { disabled: _vm.plusDisabled },
             on: {
               click: function($event) {
                 return _vm.vote(true)
@@ -13462,7 +13484,7 @@
     /* style */
     const __vue_inject_styles__$a = undefined;
     /* scoped */
-    const __vue_scope_id__$a = "data-v-c0bb02e4";
+    const __vue_scope_id__$a = "data-v-39c1f7ee";
     /* module identifier */
     const __vue_module_identifier__$a = undefined;
     /* functional template */
@@ -15107,6 +15129,9 @@
       },
       getDocument: function getDocument(documentId) {
         return this.createRequest("/api/docs/".concat(documentId));
+      },
+      download: function download() {
+        return this.createRequest("/api/download");
       },
       activateDocument: function activateDocument(documentId) {
         return this.createRequest('/api/docs', 'POST', {

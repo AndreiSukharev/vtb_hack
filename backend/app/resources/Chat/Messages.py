@@ -19,7 +19,7 @@ class Messages(Base):
     def handle_message(self, message):
         text = message['text']
         chat_id = message['chat_id']
-        author = session['user_id']
+        author = message['user_id']
         self.creation_date = message['creation_date']
         if not self.__add_message(text, author):
             return 'error'

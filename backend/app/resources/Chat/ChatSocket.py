@@ -11,12 +11,12 @@ class ChatSocket(Namespace, Base):
     def on_connect(self):
         try:
             if session.get('user_id'):
-                user_id = session['user_id']
-                print('user_id connect: ', user_id)
-                sql = "UPDATE users SET room = %s WHERE user_id = %s;"
-                self.self_room = request.sid
-                record = (self.self_room, user_id)
-                self.base_write(sql, record)
+                # user_id = session['user_id']
+                # print('user_id connect: ', user_id)
+                # sql = "UPDATE users SET room = %s WHERE user_id = %s;"
+                # self.self_room = request.sid
+                # record = (self.self_room, user_id)
+                # self.base_write(sql, record)
                 print("connected: ", request.sid)
             else:
                 print("else connect", session)
@@ -81,6 +81,7 @@ class ChatSocket(Namespace, Base):
             return res
         room = data['chat_id']
         # self.on_manage_notification(data)
+        emit('notification', data['author'] + ': ' + data['text'], room=room)
         print("sent to room:", room)
         emit('receive_message', data, room=room)
 
