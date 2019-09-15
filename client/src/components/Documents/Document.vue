@@ -12,6 +12,10 @@
       <router-link :to="link">
         <img src="assets/arrow.png" alt="">
       </router-link>
+      <button class="button">
+        <span>Reject</span>
+        <span>{{ this.getVoteById(voteId).minus }}</span>
+      </button>
     </div>
   </article>
 </template>

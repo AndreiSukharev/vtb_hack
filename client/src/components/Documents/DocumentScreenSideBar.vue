@@ -1,6 +1,6 @@
 <template>
   <article class="container">
-    <vote-text></vote-text>
+    <vote-text :vote-id="$route.params.voteId"></vote-text>
     <vote-chat></vote-chat>
   </article>
 </template>

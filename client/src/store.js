@@ -31,7 +31,11 @@ const getters = {
   getLogin: state => state.login,
   getPassword: state => state.password,
   getDocuments: state => state.documents,
-  getVotes: state => state.votes
+  getVotes: state => state.votes,
+  getVoteById: state => voteId => {
+    return state.votes.filter(vote => vote.vote_id == voteId)[0];
+  }
+
 };
 
 export default new Vuex.Store({
