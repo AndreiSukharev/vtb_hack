@@ -9,9 +9,23 @@ class Doc(Base):
         votes = self.get_votes(doc_id)
         chats = self.get_chats(doc_id)
         chats_mess = self.manage_chat_messages(chats)
-        res = {'votes': votes, 'chats': chats_mess}
+        cur_time = self.get_time(doc_id)
+        res = {'votes': votes, 'chats': chats_mess, 'time': cur_time}
 
         return res
+
+    def get_time(self, doc_id):
+        sql = """
+                                SELECT  creationDate
+                                FROM docs
+                                WHERE doc_id = %s
+                            ;"""
+        record = (doc_id,)
+        doc = self.base_get_one(sql, record)
+        cur_time = datetime.datetime.now().timestamp()
+        cur_time -= doc['creationdate']
+        return cur_time
+
 
     def manage_chat_messages(self, chats):
         for i in range(len(chats)):

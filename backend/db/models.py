@@ -13,7 +13,7 @@ class Models:
              CREATE TABLE IF NOT EXISTS docs(
              doc_id         SERIAL          NOT NULL PRIMARY KEY,
              doc_name       VARCHAR(64)     NOT NULL,
-             creationDate   INT
+             creationdate   INT
              );'''
 
     docs_users = '''

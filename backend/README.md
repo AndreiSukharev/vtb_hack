@@ -45,7 +45,7 @@ Response for getting one user:
 {
     "user_id": 4,
     "login": "test",
-    "email": "mr.andrey.sd@gmail.com",
+    "email": "test@gmail.com",
    
 }
 
@@ -56,14 +56,14 @@ GET     /api/docs  -> get all docs
 GET     /api/docs/<doc_id>  -> get doc by id
 POST    /api/docs -> start a doc
 ```
-Example POST response
+Example POST request
 ```
 {
 	"doc_id": 1
 }
 ```
 
-Request POST:
+Response GET:
 ```
 {
     "votes": [
@@ -94,7 +94,8 @@ Request POST:
                 }
             ]
         }
-     ]
+     ],
+     "time": 400.2994599342346
 }
 
 ```
@@ -102,7 +103,7 @@ Request POST:
 ```
 POST     /api/votes
 ```
-Example POST response
+Example POST request
 ```
 {
 	"vote_id": 1,
