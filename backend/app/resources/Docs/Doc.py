@@ -53,6 +53,7 @@ class Doc(Base):
                         left join docs_votes dv
                         on v.vote_id=dv.vote_id
                         WHERE dv.doc_id = %s
+                        ORDER BY v.vote_id ASC
                     ;"""
         record = (doc_id,)
         votes = self.base_get_limited_all(sql, record)
