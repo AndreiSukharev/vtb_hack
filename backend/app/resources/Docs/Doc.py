@@ -25,6 +25,8 @@ class Doc(Base):
         cur_time = datetime.datetime.now().timestamp()
         if doc.get('creationdate'):
             cur_time -= doc['creationdate']
+        else:
+            cur_time = -1
         return cur_time
 
 
