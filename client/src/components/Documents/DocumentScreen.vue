@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <article class="container votes">
+      <h1>{{ this.getTime | filterTime }}</h1>
       <vote-subject
         v-for="vote in this.getVotes"
         v-bind:document-id="vote.doc_id"
@@ -27,6 +28,7 @@
                   console.log(response)
                   this.$store.commit('setVotes', response.data.votes);
                   this.$store.commit('setChats', response.data.chats);
+                  this.$store.commit('setTimePassed', response.data.time)
               }.bind(this)).catch(error => {
                   console.log(error);
           })
@@ -34,6 +36,15 @@
         computed: {
             getVotes(){
                 return this.$store.state.votes;
+            },
+            getTime(){
+                return this.$store.state.timePassed;
+            }
+        },
+        filters: {
+            filterTime: function (value) {
+                if (value == -1) return 'Vote hasn\'t started yet';
+                return ((60*20 - value) / 60) ? `There is ${Math.floor((60*20 - value) / 60)} minutes left` : 'No time left';
             }
         }
     }
@@ -65,6 +76,10 @@
     flex: 0 0 60%;
     align-items: center;
     justify-content: center;
+  }
+
+  h1 {
+    margin-bottom: 16px;
   }
 
   @media screen and (max-width: 600px) {

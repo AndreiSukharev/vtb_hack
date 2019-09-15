@@ -30,9 +30,11 @@
         },
         methods: {
             activate(){
+                this.$toasted.info('Сообщения отправляются, пожалуйста, подождите');
+                // this.$router.push('/waiting')
                 this.$apiClient.activateDocument(this.documentId)
                     .then(function (response) {
-                      console.log(response);
+                        console.log(response);
                       this.$router.push(this.link);
                     }.bind(this));
             }
