@@ -66,4 +66,18 @@
     align-items: center;
     justify-content: center;
   }
+
+  @media screen and (max-width: 600px) {
+    .votes > *{
+      text-align: center;
+    }
+
+    .votes {
+      flex: 0 0 25%;
+    }
+
+    .sidebar {
+      flex: 0 0 75%;
+    }
+  }
 </style>

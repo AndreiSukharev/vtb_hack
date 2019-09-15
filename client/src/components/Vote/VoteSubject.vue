@@ -1,6 +1,6 @@
 <template>
   <router-link :to="link" class="votes__subject">
-    Опрос: {{ voteId }}
+    {{this.showText ? 'Опрос: ' : ''}} {{ voteId }}
   </router-link>
 </template>
 
@@ -9,6 +9,9 @@
         name: "VoteSubject",
         props: ['documentId', 'voteId'],
         computed: {
+            showText() {
+                return screen.width > 600;
+            },
             link(){
                 return `/document/${this.documentId}/vote/${this.voteId}`
             }

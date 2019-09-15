@@ -7,11 +7,11 @@
       {{ this.getVoteById(voteId).vote_text }}
     </p>
     <div class="form">
-      <button @click="vote(true)" class="form__button">
+      <button @click="vote(true)" class="form__button" :disabled="plusDisabled">
         <span>Accept</span>
         <span>{{ this.getVoteById(voteId).plus }}</span>
       </button>
-      <button class="form__button">
+      <button @click="vote(false)" class="form__button" :disabled="minusDisabled">
         <span>Reject</span>
         <span>{{ this.getVoteById(voteId).minus }}</span>
       </button>
@@ -25,13 +25,33 @@
     export default {
         name: "VoteText",
         props: ['voteId'],
+        data(){
+          return {
+              plusDisabled: false,
+              minusDisabled: false
+          }
+        },
         computed: {
-            ...mapGetters(['getVoteById'])
+            ...mapGetters(['getVoteById', 'getUserId'])
         },
         methods: {
             vote(plus){
                 if (plus) {
-                    this.$store.commit('setVote', {plus: true, voteId: this.voteId});
+                    this.$apiClient.vote(this.voteId, this.getUserId, 1)
+                        .then(function (response) {
+                            console.log(response)
+                            this.$store.commit('vote', {plus: true, voteId: this.voteId});
+                            this.plusDisabled = true;
+                            this.minusDisabled = false;
+                        }.bind(this))
+                } else {
+                    this.$apiClient.vote(this.voteId, this.getUserId, -1)
+                        .then(function (response) {
+                            console.log(response)
+                            this.$store.commit('vote', {plus: false, voteId: this.voteId});
+                            this.plusDisabled = false;
+                            this.minusDisabled = true;
+                        }.bind(this))
                 }
             }
         }
@@ -103,5 +123,4 @@
   .form__button input {
     display: none;
   }
-
 </style>

@@ -35,11 +35,11 @@ const mutations = {
   setUserId: (state, value) => {
     state.userId = value;
   },
-  setVote: (state, value) => {
+  vote: (state, value) => {
     if (value.plus) {
       state.votes.filter(votes => votes.vote_id == value.voteId)[0].plus += 1;
     }
-    if (value.minus) {
+    if (!value.plus) {
       state.votes.filter(votes => votes.vote_id == value.voteId)[0].minus += 1;
     }
   }

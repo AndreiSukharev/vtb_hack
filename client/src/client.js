@@ -39,6 +39,9 @@ Client.install = function (Vue, options) {
     },
     activateDocument(documentId) {
       return this.createRequest('/api/docs', 'POST', {doc_id: documentId})
+    },
+    vote(voteId, userId, vote) {
+      return this.createRequest('/api/votes', 'POST', {vote_id: voteId, user_id: userId, vote: vote});
     }
   }
 }
