@@ -44,7 +44,7 @@
         filters: {
             filterTime: function (value) {
                 if (value == -1) return 'Vote hasn\'t started yet';
-                return ((60*20 - value) / 60) ? `There is ${Math.floor((60*20 - value) / 60)} minutes left` : 'No time left';
+                return ((60*20 - value) / 60) > 0? `There is ${Math.floor((60*20 - value) / 60)} minutes left` : 'No time left';
             }
         }
     }
