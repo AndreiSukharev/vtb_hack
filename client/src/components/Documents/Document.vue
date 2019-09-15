@@ -7,6 +7,13 @@
       <h3>{{ name }}</h3>
       <hr>
       <p>Members: {{ members }}</p>
+      <div class="votes-container">
+        <div v-for="vote in votes">
+          <p>Vote {{ vote.vote_id }}</p>
+          <p>Accept: {{ vote.plus }}</p>
+          <p>Reject: {{ vote.minus}}</p>
+        </div>
+      </div>
     </div>
     <div class="container__document__counter">
       <router-link :to="link">
@@ -29,6 +36,17 @@
     export default {
         name: "Document",
         props: ['documentId', 'name', 'members'],
+        data(){
+            return {
+                votes: []
+            }
+        },
+        mounted(){
+            this.$apiClient.getDocument(this.documentId)
+                .then(function (response) {
+                    this.votes = response.data.votes;
+                }.bind(this));
+        },
         computed: {
             link(){
                 return `/document/${this.documentId}`;
@@ -55,6 +73,9 @@
             },
             result(){
                 this.$router.push(`/result/${this.documentId}`)
+            },
+            getVoteResults(){
+
             }
         }
     }
@@ -130,6 +151,12 @@
     line-height: 1.6rem;
     font-weight: 500;
     margin: auto;
+  }
+
+  .votes-container {
+    display: flex;
+    text-align: left;
+    justify-content: space-evenly;
   }
 
 </style>

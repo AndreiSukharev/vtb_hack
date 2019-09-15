@@ -24,17 +24,17 @@
                 return this.$store.state.timePassed;
             }
         },
-        mounted() {
-            this.$apiClient.getDocument(this.$route.params.documentId)
-                .then(function (response) {
-                    console.log(response)
-                    this.$store.commit('setVotes', response.data.votes);
-                    this.$store.commit('setChats', response.data.chats);
-                    this.$store.commit('setTimePassed', response.data.time)
-                }.bind(this)).catch(error => {
-                console.log(error);
-            })
-        }
+        // mounted() {
+        //     this.$apiClient.getDocument(this.$route.params.documentId)
+        //         .then(function (response) {
+        //             console.log(response)
+        //             this.$store.commit('setVotes', response.data.votes);
+        //             this.$store.commit('setChats', response.data.chats);
+        //             this.$store.commit('setTimePassed', response.data.time)
+        //         }.bind(this)).catch(error => {
+        //         console.log(error);
+        //     })
+        // }
     }
 </script>
 
