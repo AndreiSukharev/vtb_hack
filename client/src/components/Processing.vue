@@ -1,11 +1,14 @@
 <template>
   <div>
-    <moon-loader
-      :loading="true"
-      color="#0A2896"
-      size="300"
-      class="spinner"
-    ></moon-loader>
+    <h2>Choose the subject</h2>
+<!--    <div>-->
+<!--      <moon-loader-->
+<!--        :loading="true"-->
+<!--        color="#0A2896"-->
+<!--        size="300"-->
+<!--        class="spinner"-->
+<!--      ></moon-loader>-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -20,5 +23,6 @@ export default {
 </script>
 
 <style scoped>
+
 
 </style>

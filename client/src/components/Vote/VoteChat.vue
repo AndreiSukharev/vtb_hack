@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-if="messages.length > 0">
-      <div v-for="message in messages">
+    <div class="messages" v-if="messages.length > 0">
+      <div v-for="message in messages" :class="message.author == getLogin ? 'author': ''">
         {{message | filterMessage}}
       </div>
     </div>
@@ -23,6 +23,14 @@
     props: {
       chatid: ''
     },
+      computed: {
+        getClass(userId) {
+            return userId == this.getUserId ? 'author' : '';
+        },
+          ...mapGetters([
+              'getLogin', 'getUserId', 'getUserId'
+          ]),
+      },
     data() {
       return {
         messages: [],
@@ -48,14 +56,11 @@
     filters: {
       filterMessage: function (value) {
         let date = new Date(value.creation_date).toLocaleTimeString();
-        let message = `${value.author} ${date}: ${value.text}`;
+        let message = `${value.author}${date} : ${value.text}`;
         return message
       }
     },
     methods: {
-      ...mapGetters([
-        'getLogin', 'getUserId', 'getUserId'
-      ]),
       getChat() {
         this.$apiClient.getChat(this.chatid)
           .then(data => {
@@ -64,10 +69,10 @@
           })
       },
       sendMessage() {
-        this.dataToSend.author = this.getLogin();
+        this.dataToSend.author = this.getLogin;
         this.dataToSend.creation_date = new Date();
         this.dataToSend.chat_id = this.chatid;
-        this.dataToSend.user_id = this.getUserId();
+        this.dataToSend.user_id = this.getUserId;
         console.log(this.dataToSend)
         this.$socket.emit('message', this.dataToSend);
         this.dataToSend.text = '';
@@ -82,5 +87,23 @@
 </script>
 
 <style scoped>
+  .messages{
+    display: flex;
+    flex-flow: column nowrap;
+  }
 
+  .messages > * {
+    align-self: flex-start;
+    background-color: var(--secondary);
+    color: #fff;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 5px;
+  }
+
+  .author {
+    align-self: flex-end;
+    background-color: var(--primary);
+  }
 </style>

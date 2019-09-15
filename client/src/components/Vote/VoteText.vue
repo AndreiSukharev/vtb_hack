@@ -31,6 +31,10 @@
               minusDisabled: false
           }
         },
+        mounted(){
+            this.plusDisabled = false;
+            this.minusDisabled = false;
+        },
         computed: {
             ...mapGetters(['getVoteById', 'getUserId'])
         },
@@ -40,19 +44,40 @@
                     this.$apiClient.vote(this.voteId, this.getUserId, 1)
                         .then(function (response) {
                             console.log(response)
-                            this.$store.commit('vote', {plus: true, voteId: this.voteId});
+                            // this.$store.commit('vote', {plus: true, voteId: this.voteId});
                             this.plusDisabled = true;
                             this.minusDisabled = false;
                         }.bind(this))
+                        .then(() => {
+                            this.$apiClient.getDocument(this.$route.params.documentId)
+                                .then(function (response) {
+                                    console.log(response)
+                                    this.$store.commit('setVotes', response.data.votes);
+                                    this.$store.commit('setChats', response.data.chats);
+                                }.bind(this)).catch(error => {
+                                console.log(error);
+                            })
+                        })
                 } else {
                     this.$apiClient.vote(this.voteId, this.getUserId, -1)
                         .then(function (response) {
                             console.log(response)
-                            this.$store.commit('vote', {plus: false, voteId: this.voteId});
+                            // this.$store.commit('vote', {plus: false, voteId: this.voteId});
                             this.plusDisabled = false;
                             this.minusDisabled = true;
                         }.bind(this))
+                        .then(() => {
+                            this.$apiClient.getDocument(this.$route.params.documentId)
+                                .then(function (response) {
+                                    console.log(response)
+                                    this.$store.commit('setVotes', response.data.votes);
+                                    this.$store.commit('setChats', response.data.chats);
+                                }.bind(this)).catch(error => {
+                                console.log(error);
+                            })
+                        })
                 }
+
             }
         }
     }
