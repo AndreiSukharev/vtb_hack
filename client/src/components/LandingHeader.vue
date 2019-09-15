@@ -1,7 +1,6 @@
 <template>
   <header>
-    <p>Header</p>
-<!--    <router-link to="/"><h2>Home</h2></router-link>-->
+    <router-link to="/"><h2>Home</h2></router-link>
 <!--    <router-link>Chat</router-link>-->
 <!--    <router-link>Huyat</router-link>-->
   </header>
@@ -30,6 +29,8 @@ header {
 
 header > * {
   margin: 16px 10px 10px;
+  color: #fff;
+  text-decoration: none;
 }
 
 h3 {

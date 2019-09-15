@@ -10,7 +10,7 @@
         props: ['documentId', 'voteId'],
         computed: {
             showText() {
-                return screen.width > 600;
+                return window.innerWidth > 600;
             },
             link(){
                 return `/document/${this.documentId}/vote/${this.voteId}`

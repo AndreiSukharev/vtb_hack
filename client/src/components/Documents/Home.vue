@@ -32,7 +32,7 @@
         },
         computed: {
             showImg() {
-              return screen.width > 1000;
+              return window.innerWidth > 1200;
             },
             ...mapGetters(['getDocuments'])
         }
