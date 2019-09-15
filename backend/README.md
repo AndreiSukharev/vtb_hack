@@ -1,7 +1,7 @@
-# RESTful API Matcha
+# RESTful API VTB
 
 #### Note
-All data should be sent to server in JSON file.
+All data should be sent to server inJSON file.
 
 Schemas are in backend/db/models.py
 
