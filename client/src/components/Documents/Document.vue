@@ -33,7 +33,8 @@
                 this.$apiClient.activateDocument(this.documentId)
                     .then(function (response) {
                       console.log(response);
-                    });
+                      this.$router.push(this.link);
+                    }.bind(this));
             }
         }
     }

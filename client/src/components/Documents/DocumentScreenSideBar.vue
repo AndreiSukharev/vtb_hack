@@ -15,7 +15,7 @@
 </script>
 
 <style scoped>
-  .container{
+  article.container{
     display: flex;
     flex-direction: column;
     border: 2px solid var(--primary);

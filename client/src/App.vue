@@ -18,7 +18,6 @@ export default {
   },
   mounted() {
       console.log(this.$session.exists());
-      this.$session.destroy()
       if (!this.$session.exists()) {
           this.$router.push('/login');
       } else {

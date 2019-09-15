@@ -6,18 +6,16 @@
     <p>
       {{ this.getVoteById(voteId).vote_text }}
     </p>
-    <form class="form">
-      <label class="form__button">
+    <div class="form">
+      <button @click="vote(true)" class="form__button">
         <span>Accept</span>
         <span>{{ this.getVoteById(voteId).plus }}</span>
-        <input type="submit" ref="1" name="submit"/>
-      </label>
-      <label class="form__button">
+      </button>
+      <button class="form__button">
         <span>Reject</span>
         <span>{{ this.getVoteById(voteId).minus }}</span>
-        <input type="submit" ref="0" name="submit"/>
-      </label>
-    </form>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -29,13 +27,29 @@
         props: ['voteId'],
         computed: {
             ...mapGetters(['getVoteById'])
+        },
+        methods: {
+            vote(plus){
+                if (plus) {
+                    this.$store.commit('setVote', {plus: true, voteId: this.voteId});
+                }
+            }
         }
     }
 </script>
 
 <style scoped>
+  .container {
+    padding: 16px;
+  }
+
   .container > * {
     margin-bottom: 16px;
+  }
+
+  .container > p {
+    text-align: left;
+    font-size: 1.4rem;
   }
 
   .form {
@@ -47,7 +61,7 @@
   .form__button {
     flex: 0 0 25%;
     border-radius: 15px;
-    min-height: 24px;
+    min-height: 32px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -55,7 +69,8 @@
     margin: 0 10px 10px;
     transition-duration: 0.1s;
     border: 2px solid var(--primary);
-    color: var(--black);
+    color: #000;
+    background-color: #fff;
   }
 
   .form__button:disabled {
@@ -66,6 +81,7 @@
   .form__button:hover:not(.disabled),
   .form__button:active:not(.disabled) {
     background-color: var(--button-hover);
+    color: #fff;
     cursor: pointer;
   }
 
