@@ -5,6 +5,7 @@ import router from './router';
 import VueSession from 'vue-session'
 import Client from './client';
 import VueSocketIO from 'vue-socket.io'
+import Toasted from 'vue-toasted';
 
 let HOST_URL = "http://localhost:4440";
 Vue.use(new VueSocketIO({
@@ -20,6 +21,7 @@ Vue.use(new VueSocketIO({
 Vue.use(VueSession,{ persist: true });
 Vue.use(Client);
 Vue.config.productionTip = false;
+Vue.use(Toasted, {position: 'bottom-right', duration : 5000});
 
 new Vue({
   render: h => h(App),
