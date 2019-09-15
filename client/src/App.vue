@@ -44,7 +44,7 @@
     --black: #696969;
     --button-disabled: rgba(20, 154, 154, 0.6);
     --primary: #0A2896;
-    --secondary: #9d397e;
+    --secondary: #40B1FB;
     --button-hover: #091e6f;
     --header-background: #0A2896;
     --footer-background: #f6f7f9;
