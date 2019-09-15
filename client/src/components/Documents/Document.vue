@@ -12,9 +12,8 @@
       <router-link :to="link">
         <img src="assets/arrow.png" alt="">
       </router-link>
-      <button class="button">
-        <span>Reject</span>
-        <span>{{ this.getVoteById(voteId).minus }}</span>
+      <button @click="activate" class="button">
+        <span>Activate</span>
       </button>
     </div>
   </article>
@@ -27,6 +26,14 @@
         computed: {
             link(){
                 return `/document/${this.documentId}`;
+            }
+        },
+        methods: {
+            activate(){
+                this.$apiClient.activateDocument(this.documentId)
+                    .then(function (response) {
+                      console.log(response);
+                    });
             }
         }
     }
@@ -62,4 +69,45 @@
   .container__document__counter img {
     width: 100%;
   }
+
+  .button {
+    width: 100%;
+    border-radius: 15px;
+    min-height: 24px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-self: stretch;
+    transition-duration: 0.1s;
+    border: 2px solid var(--primary);
+    background-color: var(--primary);
+    color: #fff;
+  }
+
+  .button:disabled {
+    background-color: var(--primary);
+    color: #fff;
+  }
+
+  .button:hover:not(.disabled),
+  .button:active:not(.disabled) {
+    background-color: var(--button-hover);
+    cursor: pointer;
+  }
+
+  .button:active:not(.disabled) {
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.16);
+  }
+
+  .button.disabled {
+    background-color: var(--button-disabled);
+  }
+
+  .button > span {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    font-weight: 500;
+    margin: auto;
+  }
+
 </style>
