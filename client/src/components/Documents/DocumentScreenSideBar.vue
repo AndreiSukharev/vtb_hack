@@ -1,7 +1,7 @@
 <template>
   <article class="container">
     <vote-text :vote-id="$route.params.voteId"></vote-text>
-    <vote-chat></vote-chat>
+    <vote-chat :chatid="$route.params.voteId"></vote-chat>
   </article>
 </template>
 

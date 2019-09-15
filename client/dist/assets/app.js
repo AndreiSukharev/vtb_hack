@@ -8618,9 +8618,13 @@
     },
     mounted: function mounted() {
       console.log(this.$session.exists());
+      this.$session.destroy();
 
       if (!this.$session.exists()) {
         this.$router.push('/login');
+      } else {
+        this.$store.commit('setLogin', this.$session.get('login'));
+        this.$store.commit('setUserId', this.$session.get('userId'));
       }
     },
     sockets: {
@@ -9690,8 +9694,10 @@
   var state = {
     login: '',
     password: '',
+    userId: 0,
     documents: [],
-    votes: []
+    votes: [],
+    chats: []
   }; // mutations
 
   var mutations = {
@@ -9706,6 +9712,12 @@
     },
     setVotes: function setVotes(state, value) {
       state.votes = value;
+    },
+    setChats: function setChats(state, value) {
+      state.chats = value;
+    },
+    setUserId: function setUserId(state, value) {
+      state.userId = value;
     }
   };
   var getters = {
@@ -9727,6 +9739,19 @@
           return vote.vote_id == voteId;
         })[0];
       };
+    },
+    getChats: function getChats(state) {
+      return state.chats;
+    },
+    getChatById: function getChatById(state) {
+      return function (chatId) {
+        return state.chats.filter(function (chat) {
+          return chat.chat_id == chatId;
+        })[0];
+      };
+    },
+    getUserId: function getUserId(state) {
+      return state.userId;
     }
   };
   var store = new index_esm.Store({
@@ -12880,6 +12905,10 @@
 
           if (response.data.id !== undefined) {
             this.$session.start();
+            this.$session.set('login', this.getLogin);
+            this.$session.set('userId', response.data.id);
+            this.$store.commit('setLogin', this.$session.get('login'));
+            this.$store.commit('setUserId', this.$session.get('userId'));
             this.$router.push('/');
           }
         }.bind(this))["catch"](function (err) {
@@ -12969,7 +12998,7 @@
     /* style */
     const __vue_inject_styles__$5 = undefined;
     /* scoped */
-    const __vue_scope_id__$5 = "data-v-7b20d715";
+    const __vue_scope_id__$5 = "data-v-0238617e";
     /* module identifier */
     const __vue_module_identifier__$5 = undefined;
     /* functional template */
@@ -13059,6 +13088,7 @@
       this.$apiClient.getDocument(this.$route.params.documentId).then(function (response) {
         console.log(response);
         this.$store.commit('setVotes', response.data.votes);
+        this.$store.commit('setChats', response.data.chats);
       }.bind(this))["catch"](function (error) {
         console.log(error);
       });
@@ -13098,7 +13128,7 @@
     /* style */
     const __vue_inject_styles__$7 = undefined;
     /* scoped */
-    const __vue_scope_id__$7 = "data-v-730b7004";
+    const __vue_scope_id__$7 = "data-v-0aed09fe";
     /* module identifier */
     const __vue_module_identifier__$7 = undefined;
     /* functional template */
@@ -13374,12 +13404,55 @@
       undefined
     );
 
-  //
-  //
-  //
-  //
   var script$b = {
-    name: "VoteChat"
+    name: "VoteChat",
+    props: {
+      chatid: ''
+    },
+    data: function data() {
+      return {
+        messages: [],
+        dataToSend: {
+          text: '',
+          chat_id: this.$route.params.id,
+          author: '',
+          creation_date: ''
+        }
+      };
+    },
+    watch: {
+      chatid: function chatid() {
+        this.getChat();
+      }
+    },
+    filters: {
+      filterMessage: function filterMessage(value) {
+        var date = new Date(value.creation_date).toLocaleTimeString();
+        var message = "".concat(value.author, " ").concat(date, ": ").concat(value.text);
+        return message;
+      }
+    },
+    methods: _objectSpread2({}, mapGetters(['getLogin', 'getUserId']), {
+      getChat: function getChat() {
+        var _this = this;
+
+        this.$apiClient.getChat(this.chatid).then(function (data) {
+          console.log(data.data);
+          _this.messages = data.data;
+        });
+      },
+      sendMessage: function sendMessage() {
+        // this.dataToSend.author = this.getLogin;
+        this.dataToSend.creation_date = new Date();
+        this.$socket.emit('message', this.dataToSend);
+        this.dataToSend.text = '';
+      }
+    }),
+    sockets: {
+      receive_message: function receive_message(message) {
+        this.messages.push(message);
+      }
+    }
   };
 
   /* script */
@@ -13389,7 +13462,46 @@
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _c("div")
+    return _c("div", [
+      _vm.messages.length > 0
+        ? _c(
+            "div",
+            _vm._l(_vm.messages, function(message) {
+              return _c("div", [
+                _vm._v(
+                  "\n      " + _vm._s(_vm._f("filterMessage")(message)) + "\n    "
+                )
+              ])
+            }),
+            0
+          )
+        : _c("h5", [_vm._v("No message yet")]),
+      _vm._v(" "),
+      _c("div", [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.dataToSend.text,
+              expression: "dataToSend.text"
+            }
+          ],
+          attrs: { type: "text" },
+          domProps: { value: _vm.dataToSend.text },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.dataToSend, "text", $event.target.value);
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("button", { on: { click: _vm.sendMessage } }, [_vm._v("Send")])
+      ])
+    ])
   };
   var __vue_staticRenderFns__$b = [];
   __vue_render__$b._withStripped = true;
@@ -13397,7 +13509,7 @@
     /* style */
     const __vue_inject_styles__$b = undefined;
     /* scoped */
-    const __vue_scope_id__$b = "data-v-aaad99c8";
+    const __vue_scope_id__$b = "data-v-0f8da8c6";
     /* module identifier */
     const __vue_module_identifier__$b = undefined;
     /* functional template */
@@ -13441,7 +13553,7 @@
       [
         _c("vote-text", { attrs: { "vote-id": _vm.$route.params.voteId } }),
         _vm._v(" "),
-        _c("vote-chat")
+        _c("vote-chat", { attrs: { chatid: _vm.$route.params.voteId } })
       ],
       1
     )
@@ -13452,7 +13564,7 @@
     /* style */
     const __vue_inject_styles__$c = undefined;
     /* scoped */
-    const __vue_scope_id__$c = "data-v-38cc8a6a";
+    const __vue_scope_id__$c = "data-v-6f563770";
     /* module identifier */
     const __vue_module_identifier__$c = undefined;
     /* functional template */
@@ -14883,6 +14995,7 @@
         }
 
         config.method = method;
+        console.log(config);
         return axios$1.request(config);
       },
       login: function login(_login, password) {

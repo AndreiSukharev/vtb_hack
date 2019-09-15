@@ -27,10 +27,10 @@ class ChatSocket(Namespace, Base):
         try:
             session['user_id'] = user_id
             print('user_id connect: ', user_id)
-            sql = "UPDATE users SET room = %s WHERE user_id = %s;"
-            self.self_room = request.sid
-            record = (self.self_room, user_id)
-            self.base_write(sql, record)
+            # sql = "UPDATE users SET room = %s WHERE user_id = %s;"
+            # self.self_room = request.sid
+            # record = (self.self_room, user_id)
+            # self.base_write(sql, record)
             print("connected: ", request.sid)
 
         except Exception as e:
@@ -80,8 +80,7 @@ class ChatSocket(Namespace, Base):
         if res == 'error':
             return res
         room = data['chat_id']
-        data['type'] = 'message'
-        self.on_manage_notification(data)
+        # self.on_manage_notification(data)
         print("sent to room:", room)
         emit('receive_message', data, room=room)
 
