@@ -66,6 +66,8 @@
                             this.$store.commit('setLogin', this.$session.get('login'));
                             this.$store.commit('setUserId', this.$session.get('userId'));
                             this.$router.push('/');
+                        } else {
+                            this.$toasted.error('Wrong credentials');
                         }
                     }.bind(this)).catch(err => {
                       console.log('err', err)

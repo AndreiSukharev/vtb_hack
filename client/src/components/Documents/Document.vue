@@ -15,6 +15,12 @@
       <button @click="activate" class="button">
         <span>Activate</span>
       </button>
+      <button @click="finish" class="button">
+        <span>Finish</span>
+      </button>
+      <router-link :to="linkToResult" @click="result" class="button">
+        <span>Result</span>
+      </router-link>
     </div>
   </article>
 </template>
@@ -26,17 +32,26 @@
         computed: {
             link(){
                 return `/document/${this.documentId}`;
+            },
+            linkToResult(){
+                return `/result/${this.documentId}`
             }
         },
         methods: {
             activate(){
-                this.$toasted.info('Сообщения отправляются, пожалуйста, подождите');
+                this.$toasted.info('Please, wait. Emails are being sent');
                 // this.$router.push('/waiting')
                 this.$apiClient.activateDocument(this.documentId)
                     .then(function (response) {
                         console.log(response);
                       this.$router.push(this.link);
                     }.bind(this));
+            },
+            finish(){
+                this.$toasted.success('The vote has concluded');
+            },
+            result(){
+                this.$router.push(`/result/${this.documentId}`)
             }
         }
     }
@@ -85,6 +100,7 @@
     border: 2px solid var(--primary);
     background-color: var(--primary);
     color: #fff;
+    margin-bottom: 5px;
   }
 
   .button:disabled {

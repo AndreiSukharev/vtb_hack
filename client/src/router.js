@@ -6,6 +6,7 @@ import DocumentScreen from "./components/Documents/DocumentScreen.vue";
 import Processing from "./components/Processing.vue";
 import DocumentScreenSideBar from "./components/Documents/DocumentScreenSideBar.vue";
 import Waiting from "./components/Waiting.vue";
+import DocumentResult from "./components/Documents/DocumentResult.vue";
 
 Vue.use(VueRouter);
 
@@ -16,7 +17,8 @@ const routes = [
   { path: '/document/:documentId', component: DocumentScreen, children: [
       {path: '', component: Processing},
       {path: 'vote/:voteId', component: DocumentScreenSideBar}
-    ]}
+    ]},
+  { path: '/result/:documentId/', components: DocumentResult}
 ];
 
 
