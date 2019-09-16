@@ -8,7 +8,7 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "dev": "npm-run-all --parallel start watch",
-    "start": "serve dist"
+    "start": "serve dist -s"
   },
   "dependencies": {
     "axios": "^0.18.0",
