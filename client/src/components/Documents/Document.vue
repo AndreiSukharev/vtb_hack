@@ -25,9 +25,9 @@
       <button @click="finish" class="button">
         <span>Finish</span>
       </button>
-      <router-link :to="linkToResult" @click="result" class="button">
+      <a href="/assets/report.txt"  class="button" download>
         <span>Result</span>
-      </router-link>
+      </a>
     </div>
   </article>
 </template>
@@ -70,9 +70,6 @@
             },
             finish(){
                 this.$toasted.success('The vote has concluded');
-            },
-            result(){
-                this.$router.push(`/result/${this.documentId}`)
             },
             getVoteResults(){
 
